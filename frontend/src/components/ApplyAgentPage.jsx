@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, ArrowRight, Zap, DollarSign, Globe, CheckCircle } from 'lucide-react';
+import { Shield, ArrowRight, Zap, DollarSign, Globe, CheckCircle, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import { agentBenefits } from '../data/mock';
@@ -12,9 +12,26 @@ const iconMap = {
   Globe: Globe
 };
 
+// Country codes for phone dropdown
+const countryCodes = [
+  { code: '+420', country: 'Czechia', flag: '🇨🇿' },
+  { code: '+90', country: 'Turkey', flag: '🇹🇷' },
+  { code: '+49', country: 'Germany', flag: '🇩🇪' },
+  { code: '+43', country: 'Austria', flag: '🇦🇹' },
+  { code: '+48', country: 'Poland', flag: '🇵🇱' },
+  { code: '+421', country: 'Slovakia', flag: '🇸🇰' },
+  { code: '+44', country: 'UK', flag: '🇬🇧' },
+  { code: '+33', country: 'France', flag: '🇫🇷' },
+  { code: '+31', country: 'Netherlands', flag: '🇳🇱' },
+  { code: '+39', country: 'Italy', flag: '🇮🇹' },
+  { code: '+34', country: 'Spain', flag: '🇪🇸' },
+  { code: '+1', country: 'USA/Canada', flag: '🇺🇸' },
+];
+
 const ApplyAgentPage = () => {
   const { language, t } = useLanguage();
   const navigate = useNavigate();
+  const [selectedCountryCode, setSelectedCountryCode] = useState(countryCodes[0]); // Default: Czechia +420
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
