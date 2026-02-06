@@ -12,6 +12,7 @@ import InvestorsSection from './components/InvestorsSection';
 import Footer from './components/Footer';
 import ThankYouPage from './components/ThankYouPage';
 import ApplyAgentPage from './components/ApplyAgentPage';
+import BlueprintPage from './components/BlueprintPage';
 
 const HomePage = () => {
   return (
@@ -37,6 +38,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/thank-you" element={<ThankYouPage />} />
             <Route path="/apply-agent" element={<ApplyAgentPage />} />
+            <Route path="/blueprint" element={<BlueprintPage />} />
           </Routes>
         </BrowserRouter>
       </div>
