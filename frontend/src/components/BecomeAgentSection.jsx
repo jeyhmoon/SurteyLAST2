@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, DollarSign, Globe, ArrowRight } from 'lucide-react';
+import { Zap, DollarSign, Globe, ArrowRight, MapPin } from 'lucide-react';
 import { agentBenefits } from '../data/mock';
 import { useLanguage } from '../context/LanguageContext';
 import { useNavigate } from 'react-router-dom';
@@ -22,8 +22,8 @@ const BecomeAgentSection = () => {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1612994629424-da39618ff40c?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
-                alt="Surtey Agent"
+                src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?crop=entropy&cs=srgb&fm=jpg&q=85&w=800"
+                alt="Prague cityscape"
                 className="w-full h-[500px] object-cover"
               />
               {/* Stats Overlay */}
@@ -31,11 +31,15 @@ const BecomeAgentSection = () => {
                 <div className="flex justify-between items-center">
                   <div>
                     <div className="text-gray-400 text-sm">{t.agent.avgEarnings}</div>
-                    <div className="text-2xl font-bold text-emerald-400">$3,500+</div>
+                    <div className="text-2xl font-bold text-emerald-400">€500+</div>
                   </div>
                   <div>
                     <div className="text-gray-400 text-sm">{t.agent.perVerification}</div>
-                    <div className="text-2xl font-bold text-white">$35</div>
+                    <div className="text-2xl font-bold text-white">€5-25</div>
+                  </div>
+                  <div className="flex items-center gap-2 text-cyan-400">
+                    <MapPin className="w-4 h-4" />
+                    <span className="text-sm">Prague</span>
                   </div>
                 </div>
               </div>
