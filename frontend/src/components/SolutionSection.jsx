@@ -1,8 +1,11 @@
 import React from 'react';
 import { Shield, MapPin, Clock, Lock } from 'lucide-react';
 import { solutionSteps } from '../data/mock';
+import { useLanguage } from '../context/LanguageContext';
 
 const SolutionSection = () => {
+  const { language, t } = useLanguage();
+
   return (
     <section id="solution" className="py-24 bg-[#0a0a0a] relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -10,20 +13,20 @@ const SolutionSection = () => {
         <div className="flex justify-center mb-8">
           <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-4 py-2">
             <Shield className="w-4 h-4 text-emerald-500" />
-            <span className="text-emerald-400 text-sm font-medium">The Solution</span>
+            <span className="text-emerald-400 text-sm font-medium">{t.solution.badge}</span>
           </div>
         </div>
 
         {/* Section Heading */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
-            Human-Powered
+            {t.solution.title1}
           </h2>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold" style={{ fontFamily: "'Playfair Display', serif" }}>
-            <span className="text-emerald-400">Live Verification</span>
+            <span className="text-emerald-400">{t.solution.title2}</span>
           </h2>
           <p className="text-gray-400 text-lg mt-6 max-w-2xl mx-auto">
-            Real people. Real locations. Real-time proof. GPS + Timestamp + Live Video = Unfakeable Truth.
+            {t.solution.subtitle}
           </p>
         </div>
 
@@ -36,9 +39,11 @@ const SolutionSection = () => {
             >
               <div className="text-emerald-500/50 text-sm font-mono mb-4">STEP {step.step}</div>
               <h3 className="text-xl font-bold text-white mb-3" style={{ fontFamily: "'Playfair Display', serif" }}>
-                {step.title}
+                {language === 'tr' ? step.titleTr : step.title}
               </h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{step.description}</p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                {language === 'tr' ? step.descriptionTr : step.description}
+              </p>
             </div>
           ))}
         </div>
@@ -54,24 +59,24 @@ const SolutionSection = () => {
           <div className="absolute inset-0 z-20 flex items-center">
             <div className="p-12 max-w-lg">
               <h3 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
-                Unfakeable<br />
-                <span className="text-emerald-400">Digital Proof</span>
+                {t.solution.proofTitle1}<br />
+                <span className="text-emerald-400">{t.solution.proofTitle2}</span>
               </h3>
               <p className="text-gray-300 mb-6">
-                Every verification includes GPS coordinates, timestamp, and live video. AI-checked for manipulation. Blockchain-ready for immutable records.
+                {t.solution.proofDesc}
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2 text-emerald-400">
                   <MapPin className="w-4 h-4" />
-                  <span className="text-sm">GPS Verified</span>
+                  <span className="text-sm">{t.solution.gpsVerified}</span>
                 </div>
                 <div className="flex items-center gap-2 text-emerald-400">
                   <Clock className="w-4 h-4" />
-                  <span className="text-sm">Timestamped</span>
+                  <span className="text-sm">{t.solution.timestamped}</span>
                 </div>
                 <div className="flex items-center gap-2 text-emerald-400">
                   <Lock className="w-4 h-4" />
-                  <span className="text-sm">Tamper-Proof</span>
+                  <span className="text-sm">{t.solution.tamperProof}</span>
                 </div>
               </div>
             </div>

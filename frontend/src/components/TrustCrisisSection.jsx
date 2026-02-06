@@ -1,6 +1,7 @@
 import React from 'react';
 import { AlertTriangle, Building, Car, Package } from 'lucide-react';
 import { crisisStats } from '../data/mock';
+import { useLanguage } from '../context/LanguageContext';
 
 const iconMap = {
   AlertTriangle: AlertTriangle,
@@ -10,6 +11,8 @@ const iconMap = {
 };
 
 const TrustCrisisSection = () => {
+  const { language, t } = useLanguage();
+
   return (
     <section id="problem" className="py-24 bg-[#0a0a0a] relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -17,20 +20,20 @@ const TrustCrisisSection = () => {
         <div className="flex justify-center mb-8">
           <div className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/30 rounded-full px-4 py-2">
             <AlertTriangle className="w-4 h-4 text-red-500" />
-            <span className="text-red-400 text-sm font-medium">The Trust Crisis</span>
+            <span className="text-red-400 text-sm font-medium">{t.crisis.badge}</span>
           </div>
         </div>
 
         {/* Section Heading */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
-            In 2024, You Can't Trust
+            {t.crisis.title1}
           </h2>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold" style={{ fontFamily: "'Playfair Display', serif" }}>
-            <span className="text-red-500">What You See Online</span>
+            <span className="text-red-500">{t.crisis.title2}</span>
           </h2>
           <p className="text-gray-400 text-lg mt-6 max-w-2xl mx-auto">
-            AI can generate fake apartment photos in seconds. Deepfake videos are indistinguishable from real. Scammers exploit the distance gap.
+            {t.crisis.subtitle}
           </p>
         </div>
 
@@ -49,8 +52,12 @@ const TrustCrisisSection = () => {
                 <div className="text-4xl font-bold text-white mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
                   {stat.value}
                 </div>
-                <div className="text-white font-semibold mb-1">{stat.label}</div>
-                <div className="text-gray-500 text-sm">{stat.description}</div>
+                <div className="text-white font-semibold mb-1">
+                  {language === 'tr' ? stat.labelTr : stat.label}
+                </div>
+                <div className="text-gray-500 text-sm">
+                  {language === 'tr' ? stat.descriptionTr : stat.description}
+                </div>
               </div>
             );
           })}
