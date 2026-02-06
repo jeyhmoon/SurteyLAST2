@@ -46,13 +46,14 @@ const ApplyAgentPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Create mailto link with form data
+    // Create mailto link with form data (phone includes country code)
+    const fullPhone = `${selectedCountryCode.code} ${formData.phone}`;
     const subject = encodeURIComponent('New Agent Application - Surtey');
     const body = encodeURIComponent(
       `New Agent Application\n\n` +
       `Full Name: ${formData.fullName}\n` +
       `Email: ${formData.email}\n` +
-      `Phone: ${formData.phone}\n` +
+      `Phone: ${fullPhone}\n` +
       `City/Location: ${formData.city}\n` +
       `Experience: ${formData.experience || 'Not provided'}\n\n` +
       `Submitted at: ${new Date().toLocaleString()}`
