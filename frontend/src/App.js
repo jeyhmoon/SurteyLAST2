@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { LanguageProvider } from './context/LanguageContext';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import TrustCrisisSection from './components/TrustCrisisSection';
@@ -8,10 +10,12 @@ import VerificationFormSection from './components/VerificationFormSection';
 import BecomeAgentSection from './components/BecomeAgentSection';
 import InvestorsSection from './components/InvestorsSection';
 import Footer from './components/Footer';
+import ThankYouPage from './components/ThankYouPage';
+import ApplyAgentPage from './components/ApplyAgentPage';
 
-function App() {
+const HomePage = () => {
   return (
-    <div className="App bg-[#0a0a0a] min-h-screen">
+    <>
       <Navbar />
       <HeroSection />
       <TrustCrisisSection />
@@ -20,7 +24,23 @@ function App() {
       <BecomeAgentSection />
       <InvestorsSection />
       <Footer />
-    </div>
+    </>
+  );
+};
+
+function App() {
+  return (
+    <LanguageProvider>
+      <div className="App bg-[#0a0a0a] min-h-screen">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/thank-you" element={<ThankYouPage />} />
+            <Route path="/apply-agent" element={<ApplyAgentPage />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </LanguageProvider>
   );
 }
 
