@@ -60,10 +60,24 @@ export const solutionSteps = [
 
 export const pricingPlans = [
   {
+    name: 'Basic Snap',
+    turnaround: '2 hour turnaround',
+    price: '$9',
+    features: ['3 photos', 'Location proof', 'Basic report'],
+    popular: false
+  },
+  {
     name: 'Quick Check',
     turnaround: '1 hour turnaround',
-    price: '$25',
+    price: '$15',
     features: ['5 min video', 'Exterior view', 'Location proof'],
+    popular: false
+  },
+  {
+    name: 'Budget Verify',
+    turnaround: '3-4 hours turnaround',
+    price: '$25',
+    features: ['8 min video', 'Interior photos', 'GPS verification'],
     popular: false
   },
   {

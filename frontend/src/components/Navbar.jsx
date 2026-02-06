@@ -33,7 +33,7 @@ const Navbar = () => {
             <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center transform group-hover:scale-105 transition-transform">
               <Shield className="w-5 h-5 text-black" />
             </div>
-            <span className="text-white font-bold text-xl tracking-wide">SURETY</span>
+            <span className="text-white font-bold text-xl tracking-wide">SURTEY</span>
           </a>
 
           {/* Desktop Nav Links */}
