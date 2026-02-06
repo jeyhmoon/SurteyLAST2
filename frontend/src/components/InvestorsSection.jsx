@@ -82,7 +82,7 @@ const InvestorsSection = () => {
         {/* CTA */}
         <div className="text-center">
           <a
-            href="mailto:investors@surety.io"
+            href="mailto:getsurtey@gmail.com"
             className="inline-flex items-center gap-2 bg-emerald-500 text-black font-semibold px-8 py-4 rounded-full hover:bg-emerald-400 transition-all hover:shadow-lg hover:shadow-emerald-500/30"
           >
             Contact for Investment Deck
