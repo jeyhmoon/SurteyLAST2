@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Shield, CheckCircle, ArrowRight } from 'lucide-react';
-import { pricingPlans, verificationTypes } from '../data/mock';
+import { Shield, CheckCircle, ArrowRight, MapPin } from 'lucide-react';
+import { pricingPlans, verificationTypes, pragueDistricts } from '../data/mock';
 import { useLanguage } from '../context/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ const VerificationFormSection = () => {
   const [formData, setFormData] = useState({
     email: '',
     location: '',
+    district: pragueDistricts[0],
     verificationType: language === 'tr' ? 'Daire / Mülk' : 'Apartment / Property',
     notes: ''
   });
@@ -20,14 +21,16 @@ const VerificationFormSection = () => {
     setIsSubmitting(true);
     
     // Create mailto link with form data
-    const subject = encodeURIComponent(`New Verification Request - ${formData.verificationType}`);
+    const subject = encodeURIComponent(`Surtey Prague - New Verification Request`);
     const body = encodeURIComponent(
-      `New Verification Request\n\n` +
+      `NEW VERIFICATION REQUEST\n` +
+      `========================\n\n` +
       `Email: ${formData.email}\n` +
       `Location/URL: ${formData.location}\n` +
+      `District: ${formData.district}\n` +
       `Type: ${formData.verificationType}\n` +
       `Notes: ${formData.notes || 'None'}\n\n` +
-      `Submitted at: ${new Date().toLocaleString()}`
+      `Submitted: ${new Date().toLocaleString()}`
     );
     
     // Open email client
@@ -68,12 +71,16 @@ const VerificationFormSection = () => {
           <p className="text-gray-400 text-lg mt-6 max-w-xl mx-auto">
             {t.form.subtitle}
           </p>
+          <div className="flex items-center justify-center gap-2 mt-4 text-cyan-400">
+            <MapPin className="w-4 h-4" />
+            <span className="text-sm">🇨🇿 Prague, Czech Republic</span>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Form */}
           <div className="order-2 lg:order-1">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-white text-sm font-medium mb-2">{t.form.email}</label>
                 <input
@@ -94,26 +101,44 @@ const VerificationFormSection = () => {
                   name="location"
                   value={formData.location}
                   onChange={handleChange}
-                  placeholder={language === 'tr' ? 'Adres veya ilan linki' : 'Address or listing link'}
+                  placeholder={language === 'tr' ? 'Adres veya ilan linki (Bezrealitky, Sreality, vb.)' : 'Address or listing link (Bezrealitky, Sreality, etc.)'}
                   className="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-4 md:py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500/50 transition-colors text-base"
                   required
                 />
               </div>
 
-              <div>
-                <label className="block text-white text-sm font-medium mb-2">{t.form.type}</label>
-                <select
-                  name="verificationType"
-                  value={formData.verificationType}
-                  onChange={handleChange}
-                  className="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-4 md:py-3.5 text-white focus:outline-none focus:border-emerald-500/50 transition-colors appearance-none cursor-pointer text-base"
-                >
-                  {verificationTypes.map((type) => (
-                    <option key={type.en} value={language === 'tr' ? type.tr : type.en} className="bg-gray-900">
-                      {language === 'tr' ? type.tr : type.en}
-                    </option>
-                  ))}
-                </select>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-white text-sm font-medium mb-2">{t.form.district || 'District'}</label>
+                  <select
+                    name="district"
+                    value={formData.district}
+                    onChange={handleChange}
+                    className="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-4 md:py-3.5 text-white focus:outline-none focus:border-emerald-500/50 transition-colors appearance-none cursor-pointer text-base"
+                  >
+                    {pragueDistricts.map((district) => (
+                      <option key={district} value={district} className="bg-gray-900">
+                        {district}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-white text-sm font-medium mb-2">{t.form.type}</label>
+                  <select
+                    name="verificationType"
+                    value={formData.verificationType}
+                    onChange={handleChange}
+                    className="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-4 md:py-3.5 text-white focus:outline-none focus:border-emerald-500/50 transition-colors appearance-none cursor-pointer text-base"
+                  >
+                    {verificationTypes.map((type) => (
+                      <option key={type.en} value={language === 'tr' ? type.tr : type.en} className="bg-gray-900">
+                        {language === 'tr' ? type.tr : type.en}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div>
@@ -122,8 +147,8 @@ const VerificationFormSection = () => {
                   name="notes"
                   value={formData.notes}
                   onChange={handleChange}
-                  rows={4}
-                  placeholder={language === 'tr' ? 'Doğrulanmasını istediğiniz özel detaylar?' : "Any specific things you'd like verified?"}
+                  rows={3}
+                  placeholder={language === 'tr' ? 'Özellikle kontrol etmemizi istediğiniz bir şey var mı?' : 'Anything specific you want us to check?'}
                   className="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-4 md:py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500/50 transition-colors resize-none text-base"
                 />
               </div>
@@ -165,7 +190,7 @@ const VerificationFormSection = () => {
                     </span>
                   </div>
                 )}
-                <div className="flex justify-between items-start mb-4">
+                <div className="flex justify-between items-start mb-3">
                   <div>
                     <h3 className="text-xl font-bold text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
                       {language === 'tr' ? plan.nameTr : plan.name}
@@ -174,7 +199,10 @@ const VerificationFormSection = () => {
                   </div>
                   <div className="text-3xl font-bold text-emerald-400">{plan.price}</div>
                 </div>
-                <div className="flex flex-wrap gap-4">
+                <p className="text-gray-400 text-sm mb-3 italic">
+                  "{language === 'tr' ? plan.descriptionTr : plan.description}"
+                </p>
+                <div className="flex flex-wrap gap-3">
                   {(language === 'tr' ? plan.featuresTr : plan.features).map((feature, i) => (
                     <div key={i} className="flex items-center gap-2 text-gray-300">
                       <CheckCircle className="w-4 h-4 text-emerald-500" />
