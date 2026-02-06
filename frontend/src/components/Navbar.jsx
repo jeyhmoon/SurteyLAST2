@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Menu, X } from 'lucide-react';
+import { Shield, Menu, X, Globe } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { language, toggleLanguage, t } = useLanguage();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,11 +18,30 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   const navLinks = [
-    { label: 'Problem', href: '#problem' },
-    { label: 'Solution', href: '#solution' },
-    { label: 'Become Agent', href: '#agent' },
-    { label: 'Investors', href: '#investors' }
+    { label: t.nav.problem, href: '#problem' },
+    { label: t.nav.solution, href: '#solution' },
+    { label: t.nav.becomeAgent, href: '#agent' },
+    { label: t.nav.investors, href: '#investors' }
   ];
 
   return (
@@ -29,7 +53,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
+          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }} className="flex items-center gap-2 group">
             <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center transform group-hover:scale-105 transition-transform">
               <Shield className="w-5 h-5 text-black" />
             </div>
@@ -42,6 +66,7 @@ const Navbar = () => {
               <a
                 key={link.label}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
               >
                 {link.label}
@@ -49,23 +74,39 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* Language Toggle & CTA */}
+          <div className="hidden md:flex items-center gap-4">
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-gray-800/50"
+            >
+              <Globe className="w-4 h-4" />
+              <span className="text-sm font-medium">{language === 'en' ? 'TR' : 'EN'}</span>
+            </button>
             <a
               href="#verify"
+              onClick={(e) => handleNavClick(e, '#verify')}
               className="bg-emerald-500 text-black font-semibold px-6 py-2.5 rounded-full hover:bg-emerald-400 transition-all hover:shadow-lg hover:shadow-emerald-500/20"
             >
-              Verify Now
+              {t.nav.verifyNow}
             </a>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-white p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={toggleLanguage}
+              className="text-gray-400 hover:text-white p-2"
+            >
+              <Globe className="w-5 h-5" />
+            </button>
+            <button
+              className="text-white p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -76,18 +117,18 @@ const Navbar = () => {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-gray-300 hover:text-white transition-colors text-sm font-medium py-2"
+                  onClick={(e) => handleNavClick(e, link.href)}
                 >
                   {link.label}
                 </a>
               ))}
               <a
                 href="#verify"
-                className="bg-emerald-500 text-black font-semibold px-6 py-2.5 rounded-full text-center hover:bg-emerald-400 transition-all"
-                onClick={() => setIsMobileMenuOpen(false)}
+                className="bg-emerald-500 text-black font-semibold px-6 py-3 rounded-full text-center hover:bg-emerald-400 transition-all"
+                onClick={(e) => handleNavClick(e, '#verify')}
               >
-                Verify Now
+                {t.nav.verifyNow}
               </a>
             </div>
           </div>
