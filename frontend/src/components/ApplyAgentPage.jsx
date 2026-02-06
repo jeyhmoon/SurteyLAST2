@@ -155,15 +155,36 @@ const ApplyAgentPage = () => {
 
                 <div>
                   <label className="block text-white text-sm font-medium mb-2">{t.agentForm.phone}</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="+90 555 123 4567"
-                    className="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500/50 transition-colors text-base"
-                    required
-                  />
+                  <div className="flex gap-2">
+                    {/* Country Code Dropdown */}
+                    <div className="relative">
+                      <select
+                        value={selectedCountryCode.code}
+                        onChange={(e) => {
+                          const selected = countryCodes.find(c => c.code === e.target.value);
+                          if (selected) setSelectedCountryCode(selected);
+                        }}
+                        className="appearance-none bg-gray-900/50 border border-gray-800 rounded-xl px-3 py-4 pr-8 text-white focus:outline-none focus:border-emerald-500/50 transition-colors text-base cursor-pointer min-w-[110px]"
+                      >
+                        {countryCodes.map((country) => (
+                          <option key={country.code} value={country.code} className="bg-gray-900">
+                            {country.flag} {country.code}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+                    </div>
+                    {/* Phone Number Input */}
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="123 456 789"
+                      className="flex-1 bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500/50 transition-colors text-base"
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div>
