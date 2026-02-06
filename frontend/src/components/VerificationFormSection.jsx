@@ -114,7 +114,7 @@ const VerificationFormSection = () => {
               </button>
 
               <p className="text-gray-500 text-center text-sm">
-                Starting at $25. We'll contact you with a quote within 2 hours.
+                Starting at $9. We'll contact you with a quote within 2 hours.
               </p>
             </form>
           </div>
