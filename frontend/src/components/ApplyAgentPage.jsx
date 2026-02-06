@@ -194,7 +194,7 @@ const ApplyAgentPage = () => {
                     name="city"
                     value={formData.city}
                     onChange={handleChange}
-                    placeholder={language === 'tr' ? 'İstanbul, Türkiye' : 'Istanbul, Turkey'}
+                    placeholder={language === 'tr' ? 'Prag, Çekya' : 'Prague, Czechia'}
                     className="w-full bg-gray-900/50 border border-gray-800 rounded-xl px-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500/50 transition-colors text-base"
                     required
                   />
