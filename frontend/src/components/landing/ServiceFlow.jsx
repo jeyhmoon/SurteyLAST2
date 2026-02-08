@@ -1,78 +1,54 @@
 import React from 'react';
 import { FileText, CreditCard, MapPin, FileCheck } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
-const steps = [
-  {
-    icon: FileText,
-    number: '01',
-    title: 'Submit Request',
-    description: 'Send us the listing URL or address you want verified. We respond within 2 hours.',
-    color: '#059669'
-  },
-  {
-    icon: CreditCard,
-    number: '02',
-    title: 'Secure Payment',
-    description: 'Pay securely via PayPal. Your payment is protected until verification is complete.',
-    color: '#0891b2'
-  },
-  {
-    icon: MapPin,
-    number: '03',
-    title: 'Local Verification',
-    description: 'Our verified local agent visits the location and documents everything with GPS proof.',
-    color: '#7c3aed'
-  },
-  {
-    icon: FileCheck,
-    number: '04',
-    title: 'Receive Report',
-    description: 'Get your detailed verification report with photos, video, and our findings via email.',
-    color: '#059669'
-  }
-];
+const icons = [FileText, CreditCard, MapPin, FileCheck];
+const colors = ['#059669', '#0891b2', '#7c3aed', '#059669'];
 
 const ServiceFlow = () => {
+  const { t } = useLanguage();
+
   return (
-    <section className="py-20 px-6 bg-white">
+    <section id="how-it-works" className="py-16 sm:py-20 px-4 sm:px-6 bg-white">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1a2b4a] mb-4">
-            How It Works
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1a2b4a] mb-3 sm:mb-4">
+            {t.flow.title}
           </h2>
-          <p className="text-lg text-[#64748b] max-w-xl mx-auto">
-            Simple, transparent process from request to report
+          <p className="text-base sm:text-lg text-[#64748b] max-w-xl mx-auto">
+            {t.flow.subtitle}
           </p>
         </div>
 
         {/* Steps Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {steps.map((step, index) => {
-            const Icon = step.icon;
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {t.flow.steps.map((step, index) => {
+            const Icon = icons[index];
+            const color = colors[index];
             return (
               <div
                 key={index}
-                className="relative bg-[#FAFBFC] rounded-2xl p-6 border border-gray-100 hover:border-[#059669]/30 hover:shadow-lg transition-all group"
+                className="relative bg-[#FAFBFC] rounded-2xl p-5 sm:p-6 border border-gray-100 hover:border-[#059669]/30 hover:shadow-lg transition-all group"
               >
                 {/* Step Number */}
                 <div 
-                  className="absolute -top-3 -right-3 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white"
-                  style={{ backgroundColor: step.color }}
+                  className="absolute -top-3 -right-3 w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold text-white"
+                  style={{ backgroundColor: color }}
                 >
-                  {step.number}
+                  {String(index + 1).padStart(2, '0')}
                 </div>
 
                 {/* Icon */}
                 <div 
-                  className="w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-transform group-hover:scale-110"
-                  style={{ backgroundColor: `${step.color}15` }}
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center mb-4 sm:mb-5 transition-transform group-hover:scale-110"
+                  style={{ backgroundColor: `${color}15` }}
                 >
-                  <Icon className="w-7 h-7" style={{ color: step.color }} />
+                  <Icon className="w-6 h-6 sm:w-7 sm:h-7" style={{ color: color }} />
                 </div>
 
                 {/* Content */}
-                <h3 className="text-lg font-semibold text-[#1a2b4a] mb-2">
+                <h3 className="text-base sm:text-lg font-semibold text-[#1a2b4a] mb-2">
                   {step.title}
                 </h3>
                 <p className="text-[#64748b] text-sm leading-relaxed">
@@ -80,7 +56,7 @@ const ServiceFlow = () => {
                 </p>
 
                 {/* Connector Line (hidden on mobile) */}
-                {index < steps.length - 1 && (
+                {index < 3 && (
                   <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-gray-200" />
                 )}
               </div>
