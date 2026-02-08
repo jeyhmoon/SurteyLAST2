@@ -4,6 +4,7 @@ import HeroSection from './HeroSection';
 import ServiceFlow from './ServiceFlow';
 import PricingSection from './PricingSection';
 import TrustSection from './TrustSection';
+import BecomeAgentSection from './BecomeAgentSection';
 import LandingFooter from './LandingFooter';
 import PaymentModal from './PaymentModal';
 import ConfirmationModal from './ConfirmationModal';
@@ -42,6 +43,7 @@ const LandingPage = () => {
       <ServiceFlow />
       <PricingSection onSelectPlan={handleSelectPlan} />
       <TrustSection />
+      <BecomeAgentSection />
       <LandingFooter />
 
       {showPaymentModal && selectedPlan && (
