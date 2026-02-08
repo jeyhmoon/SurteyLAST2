@@ -40,8 +40,8 @@ const PaymentModal = ({ plan, onClose, onSuccess }) => {
         customer_email: formData.email,
         customer_name: null,
         location: formData.location,
-        district: 'Prague',
-        verification_type: 'Apartment / Property',
+        district: 'Prague Center',
+        verification_type: 'Property Verification',
         package_id: plan.id,
         notes: formData.notes || null,
         rush: false
